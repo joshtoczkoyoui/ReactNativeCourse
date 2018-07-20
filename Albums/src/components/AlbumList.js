@@ -1,14 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 
-class AlbumList extends Component {
-    render() {      
+export default class AlbumList extends React.Component {
+    state = { albums: [] };
+    
+    componentWillMount() {
+        fetch('https://rallycoding.herokuapp.com/api/music_albums')
+            .then(response => response.json())
+            .then(responseJSON => {
+                this.setState({ albums: responseJSON });
+            });
+    }
+
+    renderAlbums() {
+        return this.state.albums.map(album => 
+            <Text key={album.title}>{album.title}</Text>
+        );
+    }
+
+    render() {
+        console.log('Renderahh');
+        console.log(this.state);
+        
         return (
             <View>
-                <Text>ALUBM LIST Render Method!!</Text>
+                {this.renderAlbums()}
             </View>
         );
     }
 }
-
-export default AlbumList;
