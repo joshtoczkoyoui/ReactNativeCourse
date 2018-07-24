@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, NativeModules, LayoutAnimation } from 'react-native';
 
 // Redux
 import { connect } from 'react-redux';
@@ -8,7 +8,14 @@ import * as actions from '../actions';
 // Common
 import { CardSection } from './common';
 
+const { UIManager } = NativeModules;
+UIManager.setLayoutAnimationEnabledExperimental(true);
+
 class ListItem extends React.Component {
+    componentWillUpdate() {
+        LayoutAnimation.spring();
+    }
+
     renderDescription() {
         const { library, expanded } = this.props;
 
@@ -21,15 +28,21 @@ class ListItem extends React.Component {
         }
     }
 
-    render() {
+    getTitleStyle() {
         const { 
             titleStyle,
+            highlightedTitleStyle,
         } = styles;
 
-        const {
-            id,
-            title,
-        } = this.props.library;
+        if (this.props.expanded) {
+            return highlightedTitleStyle;
+        }
+
+        return titleStyle;
+    }
+
+    render() {
+        const { id, title, } = this.props.library;
 
         return (
             <TouchableWithoutFeedback 
@@ -37,7 +50,7 @@ class ListItem extends React.Component {
             >
                 <View>
                     <CardSection>
-                        <Text style={titleStyle}>
+                        <Text style={this.getTitleStyle()}>
                             {title}
                         </Text>
                     </CardSection>
@@ -53,9 +66,15 @@ const styles = {
         fontSize: 18,
         paddingLeft: 15,
     },
+    highlightedTitleStyle: {
+        flex: 1,
+        fontSize: 18,
+        paddingLeft: 15,
+        backgroundColor: 'lightblue',
+    },
     descriptionStyle: {
-        paddingLeft: 17,
-        paddingRight: 17,
+        paddingLeft: 18,
+        paddingRight: 18,
     },
 };
 
