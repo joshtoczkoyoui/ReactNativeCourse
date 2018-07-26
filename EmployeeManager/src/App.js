@@ -14,6 +14,8 @@ import reducers from './reducers';
 import { Header } from './components/common';
 
 // Components
+import Router from './Router';
+
 import LoginForm from './components/LoginForm';
 
 class App extends React.Component {
@@ -32,13 +34,10 @@ class App extends React.Component {
 
     render() {
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-        
+
         return (
             <Provider store={store}>
-                <View>
-                    <Header headerText='Manager' />
-                    <LoginForm />
-                </View>
+                <Router />
             </Provider>
         );
     }

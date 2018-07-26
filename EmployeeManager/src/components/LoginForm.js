@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 // Common components
-import { Card, CardSection, Button, Input } from './common';
+import { Card, CardSection, Button, Input, Spinner } from './common';
 
 class LoginForm extends React.Component {
     onEmailChange(text) {
@@ -20,6 +20,18 @@ class LoginForm extends React.Component {
         const { email, password } = this.props;
 
         this.props.loginUser({ email, password });
+    }
+
+    renderLoginButton() {
+        if (this.props.loading) {
+            return <Spinner />;
+        }
+        
+        return (
+            <Button onPress={this.onLoginButtonPress.bind(this)}>
+                Login
+            </Button>
+        );
     }
 
     renderError() {
@@ -63,9 +75,7 @@ class LoginForm extends React.Component {
                 {this.renderError()}
 
                 <CardSection>
-                    <Button onPress={this.onLoginButtonPress.bind(this)}>
-                        Login
-                    </Button>
+                    {this.renderLoginButton()}
                 </CardSection>
             </Card>
         );
@@ -88,6 +98,7 @@ const mapStateToProps = (state) => {
         email: state.auth.email,
         password: state.auth.password,
         error: state.auth.error,
+        loading: state.auth.loading,
     };
 };
 
