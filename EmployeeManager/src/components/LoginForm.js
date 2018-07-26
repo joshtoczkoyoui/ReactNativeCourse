@@ -16,6 +16,26 @@ class LoginForm extends React.Component {
         this.props.passwordChanged(text);
     }
 
+    onLoginButtonPress() {
+        const { email, password } = this.props;
+
+        this.props.loginUser({ email, password });
+    }
+
+    renderError() {
+        const { errorContainerStyle, errorTextStyle } = styles;
+
+        if (this.props.error) {
+            return (
+                <View style={errorContainerStyle}>
+                    <Text style={errorTextStyle}>
+                        {this.props.error}
+                    </Text>
+                </View>
+            );
+        }
+    }
+
     render() {
         return (
             <Card>
@@ -40,8 +60,10 @@ class LoginForm extends React.Component {
                     />
                 </CardSection>
 
+                {this.renderError()}
+
                 <CardSection>
-                    <Button>
+                    <Button onPress={this.onLoginButtonPress.bind(this)}>
                         Login
                     </Button>
                 </CardSection>
@@ -50,10 +72,22 @@ class LoginForm extends React.Component {
     }
 }
 
+const styles = {
+    errorContainerStyle: {
+        backgroundColor: 'white',
+    },
+    errorTextStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red',
+    },
+};
+
 const mapStateToProps = (state) => {
     return {
         email: state.auth.email,
         password: state.auth.password,
+        error: state.auth.error,
     };
 };
 
