@@ -5,6 +5,8 @@ import { View, Text, TouchableWithoutFeedback, NativeModules, LayoutAnimation } 
 // import { connect } from 'react-redux';
 // import * as actions from '../actions';
 
+import { Actions } from 'react-native-router-flux';
+
 // Common
 import { CardSection } from './common';
 
@@ -41,15 +43,23 @@ class EmployeeListItem extends React.Component {
     //     }
     // }
 
+    onSelectEmployee() {
+        Actions.employeeCreate({ employee: this.props.employee });
+    }
+
     render() {
         const { name } = this.props.employee;
 
         return (
-            <CardSection>
-                <Text style={styles.titleStyle}>
-                    {name}
-                </Text>
-            </CardSection>
+            <TouchableWithoutFeedback onPress={this.onSelectEmployee.bind(this)}>
+                <View>
+                    <CardSection>
+                        <Text style={styles.titleStyle}>
+                            {name}
+                        </Text>
+                    </CardSection>
+                </View>
+            </TouchableWithoutFeedback>
             
             // <TouchableWithoutFeedback 
             //     onPress={() => this.props.selectLibrary(id)}
