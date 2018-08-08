@@ -1,3 +1,5 @@
+import { Keyboard } from 'react-native';
+
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
@@ -31,6 +33,7 @@ export const loginUser = ({ email, password }) => {
 const loginUserSuccess = (dispatch, user) => {
     dispatch({ type: type.LOGIN_USER_SUCCESS, payload: user });
 
+    Keyboard.dismiss();
     Actions.main();
 };
 
