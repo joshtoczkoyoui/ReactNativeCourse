@@ -7,6 +7,12 @@ import * as actions from '../actions';
 import { Card, CardSection, Input, Button } from './common';
 
 class EmployeeCreate extends React.Component {
+    onButtonPress() {
+        const { name, phone, workShift } = this.props;
+
+        this.props.employeeCreate({ name, phone, workShift: workShift || 'Monday' });
+    }
+
     render() {
         const {
             pickerLabelStyle,
@@ -50,7 +56,9 @@ class EmployeeCreate extends React.Component {
                 </CardSection>
 
                 <CardSection>
-                    <Button>
+                    <Button
+                        onPress={this.onButtonPress.bind(this)}
+                    >
                         Create
                     </Button>
                 </CardSection>
