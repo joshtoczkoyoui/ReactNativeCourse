@@ -41,6 +41,16 @@ class EmployeeEdit extends React.Component {
         this.setState({ showModal: !this.state.showModal });
     }
 
+    onAccept() {
+        const { employee } = this.props;
+
+        this.props.employeeDelete({ uid: employee.uid });
+    }
+
+    onDecline() {
+        this.setState({ showModal: false });
+    }
+
     render() {
         return (
             <Card>
@@ -65,8 +75,10 @@ class EmployeeEdit extends React.Component {
 
                 <ConfirmModal
                     visible={this.state.showModal}
+                    onAccept={this.onAccept.bind(this)}
+                    onDecline={this.onDecline.bind(this)}
                 >
-                    U WANA DELETE THIS PERSON?
+                    Are you sure you want to fire {this.props.name}?
                 </ConfirmModal>
             </Card>
         );
