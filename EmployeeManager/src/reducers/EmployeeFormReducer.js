@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
         case type.EMPLOYEE_UPDATE:
             return { ...state, [action.payload.prop]: action.payload.value };
 
-        case type.EMPLOYEE_CREATE:
+        case type.RESET_FORM:
             return INITIAL_STATE;
 
         default:

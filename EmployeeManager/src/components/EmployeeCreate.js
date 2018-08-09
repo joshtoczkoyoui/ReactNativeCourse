@@ -8,6 +8,10 @@ import { Card, CardSection, Button } from './common';
 import EmployeeForm from './EmployeeForm';
 
 class EmployeeCreate extends React.Component {
+    componentWillUnmount() {
+        this.props.resetForm();
+    }
+    
     onButtonPress() {
         const { name, phone, workShift } = this.props;
 
