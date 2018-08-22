@@ -25,7 +25,7 @@ const styles = {
         marginRight: 5,
     },
     textStyle: {
-        alignSelf: 'center',
+        textAlign: 'center',
         color: '#007aff',
         fontSize: 16,
         fontWeight: '600',
