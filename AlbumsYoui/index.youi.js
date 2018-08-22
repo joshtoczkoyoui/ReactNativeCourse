@@ -7,7 +7,7 @@ import AlbumList from './src/components/AlbumList';
 
 // Create a component
 const YiReactApp = () => (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <Header headerText={'Albums'} />
         <AlbumList />
     </View>
