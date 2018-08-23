@@ -22,7 +22,7 @@ class GenerateOptions
         options.jsbundle_files = []
         options.jsbundle_working_directory = nil
 
-        platformList = ["Android", "Ios", "Linux", "Osx", "Ps4", "Roku4", "Roku4201en", "Tizen-Nacl", "Tvos", "Uwp", "Vs2017"]
+        platformList = ["Android", "Ios", "Linux", "Osx", "Ps4", "Roku2", "Roku4", "Tizen-Nacl", "Tvos", "Uwp", "Vs2017"]
         configurationList = ["Debug","Release"]
 
         unless File.exist?(File.join("#{__dir__}", "CMakeLists.txt"))
@@ -66,7 +66,7 @@ class GenerateOptions
                 "Tizen-NaCl:",
                 "  - Eclipse CDT4 - Ninja (default if installed)",
                 "  - Eclipse CDT4 - Unix Makefiles (default without ninja)",
-                "Roku4201EN/Roku4:",
+                "Roku2/Roku4:",
                 "  - Ninja (default if installed)",
                 "  - Unix Makefiles (default without ninja)",
                 "UWP:",
@@ -198,7 +198,7 @@ class GenerateOptions
                         puts "Could not find ninja or unix make. One of these generators must be installed to generate for Tizen-NaCl."
                         exit 1
                     end
-                when /roku4201en|roku4/i
+                when /roku2|roku4/i
                     ninja = system('ninja', [:out, :err] => File::NULL)
                     make = system('make', [:out, :err] => File::NULL)
                     if ninja != nil
@@ -206,7 +206,7 @@ class GenerateOptions
                     elsif make != nil
                         options.generator = "Unix Makefiles"
                     else
-                        puts "Could not find ninja or unix make. One of these generators must be installed to generate for Roku4201EN or Roku4."
+                        puts "Could not find ninja or unix make. One of these generators must be installed to generate for Roku2 or Roku4."
                         exit 1
                     end
                 end
@@ -414,7 +414,9 @@ class GenerateOptions
         end
 
         output_dir = File.expand_path(File.join(options.build_directory, "Staging", "generated", "jsbundles"))
-        FileUtils.rmdir(output_dir)
+        if File.directory?(output_dir)
+            FileUtils.rmtree(output_dir)
+        end
 
         engine_dir = get_engine_dir(options)
         command = "ruby \"#{engine_dir}/tools/workflow/bundlejs.rb\" --working_directory \"#{options.jsbundle_working_directory}\" --platform \"#{options.platform.downcase}\""
