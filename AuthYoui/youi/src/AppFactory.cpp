@@ -4,14 +4,18 @@
 
 #define APP_NAME "Video Player"
 
-#define APP_DENSITY (72)
-#if defined(YI_PS4) || defined(YI_XBOX_360) || defined(YI_PS3)
-#define APP_WIDTH (1920)
-#define APP_HEIGHT (1080)
-#else
-#define APP_WIDTH (1280)
-#define APP_HEIGHT (720)
-#endif
+#define APP_DENSITY (326)
+
+//#if defined(YI_PS4) || defined(YI_XBOX_360) || defined(YI_PS3)
+//#define APP_WIDTH (1920)
+//#define APP_HEIGHT (1080)
+//#else
+//#define APP_WIDTH (1280)
+//#define APP_HEIGHT (720)
+//#endif
+
+#define APP_WIDTH (750)
+#define APP_HEIGHT (1334)
 
 std::unique_ptr<CYIApp> AppFactory::Create()
 {
