@@ -18,8 +18,8 @@ class GenerateOptions
         options.inline_jsbundle = false
         options.dev_jsbundle = false
         options.minify_jsbundle = false
-        options.jsbundle_directories = []
-        options.jsbundle_files = []
+        options.jsbundle_directory = []
+        options.jsbundle_file = []
         options.jsbundle_working_directory = nil
 
         platformList = ["Android", "Ios", "Linux", "Osx", "Ps4", "Roku2", "Roku4", "Tizen-Nacl", "Tvos", "Uwp", "Vs2017"]
@@ -141,16 +141,14 @@ class GenerateOptions
                 options.inline_jsbundle = true
             end
 
-            opts.on("--files file,file,file", Array,
-                "If included, adds the given JS files to the JS bundle.") do |files|
-                options.jsbundle_files = files
-                options.jsbundle_files.uniq!
+            opts.on("--file file", String,
+                "The entry point for the application, for JS bundling.") do |file|
+                options.jsbundle_file = file
             end
 
-            opts.on("--directories directory,directory,directory", Array,
-                "If included, adds the JS files of the listed directories to the JS bundle.") do |directories|
-                options.jsbundle_directories = directories
-                options.jsbundle_directories.uniq!
+            opts.on("--directory directory", String,
+                "If included, adds the JS files of the listed directory, and create a bundle for each one.") do |directory|
+                options.jsbundle_directory = directory
             end
 
 
@@ -240,8 +238,8 @@ class GenerateOptions
                 options.defines["YI_LOCAL_JS"] = "ON"
                 options.defines["YI_BUNDLED_ASSETS_DEST"] = File.expand_path(File.join(options.build_directory, "Staging", "generated", "bundled_assets"))
 
-                unless options.jsbundle_files.length > 0 || options.jsbundle_directories.length > 0
-                    puts "ERROR: The --files or --directories argument is missing. Add one of these to specify the files/directories to include within the JS bundle."
+                unless options.jsbundle_file.length > 0 || options.jsbundle_directory.length > 0
+                    puts "ERROR: The --file or --directory argument is missing. Add one of these to specify the file/directory to include within the JS bundle."
                     abort
                 end
             end
@@ -413,38 +411,13 @@ class GenerateOptions
             return
         end
 
-        output_dir = File.expand_path(File.join(options.build_directory, "Staging", "generated", "jsbundles"))
-        if File.directory?(output_dir)
-            FileUtils.rmtree(output_dir)
-        end
-
         engine_dir = get_engine_dir(options)
         command = "ruby \"#{engine_dir}/tools/workflow/bundlejs.rb\" --working_directory \"#{options.jsbundle_working_directory}\" --platform \"#{options.platform.downcase}\""
 
-        input_files = ""
-        options.jsbundle_files.each_index do |index|
-            input_files << options.jsbundle_files[index]
-
-            if index < options.jsbundle_files.length - 1
-                input_files << ";"
-            end
-        end
-
-        if input_files.length > 0
-            command << " --input_files \"#{input_files}\""
-        end
-
-        input_directories = ""
-        options.jsbundle_directories.each_index do |index|
-            input_directories << options.jsbundle_directories[index]
-
-            if index < options.jsbundle_directories.length - 1
-                input_directories << ";"
-            end
-        end
-
-        if input_directories.length > 0
-            command << " --input_directories \"#{input_directories}\""
+        if options.jsbundle_file.length > 0
+            command << " --input_files \"#{options.jsbundle_file}\""
+        elsif options.jsbundle_directory.length > 0
+            command << " --input_directories \"#{options.jsbundle_directory}\""
         end
 
         if options.defines.has_key?("CMAKE_BUILD_TYPE")
@@ -457,12 +430,15 @@ class GenerateOptions
         if options.inline_jsbundle
             command << " --minify"
             command << " --inline"
-
             output_dir = File.expand_path(File.join(output_dir, "InlineJSBundleGenerated"))
         end
 
         command << " --output \"#{output_dir}\""
         command << " --assets_dest \"#{options.defines["YI_BUNDLED_ASSETS_DEST"]}\""
+
+        if File.directory?(output_dir)
+            FileUtils.rmtree(output_dir)
+        end
 
         unless system(command)
             abort
