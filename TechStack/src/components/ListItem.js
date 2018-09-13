@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback, NativeModules, LayoutAnimation } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, NativeModules, LayoutAnimation, Platform } from 'react-native';
 
 // Redux
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import * as actions from '../actions';
 import { CardSection } from './common';
 
 const { UIManager } = NativeModules;
-UIManager.setLayoutAnimationEnabledExperimental(true);
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 
 class ListItem extends React.Component {
     componentWillUpdate() {
