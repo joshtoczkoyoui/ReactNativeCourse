@@ -1,4 +1,2 @@
-
-AlbumsYoui/youi/build/
-
-AuthYoui/youi/build/
+*/youi/build/
+node_modules/

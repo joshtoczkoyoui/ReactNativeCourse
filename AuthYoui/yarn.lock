@@ -619,9 +619,9 @@
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.8.tgz#38a936b60b898a1ad0f3719543ff1a1031f60f8b"
 
-"@youi/react-native-youi@5.0.0-alpha.20180824.3":
-  version "5.0.0-alpha.20180824.3"
-  resolved "https://youi.jfrog.io/youi/api/npm/jspkg/@youi/react-native-youi/-/@youi/react-native-youi-5.0.0-alpha.20180824.3.tgz#6d23b0f7e5d6ffcfdb86fcc48c885558b2ab8a21"
+"@youi/react-native-youi@5.0.1":
+  version "5.0.1"
+  resolved "https://youi.jfrog.io/youi/api/npm/jspkg/@youi/react-native-youi/-/@youi/react-native-youi-5.0.1.tgz#4941b4291ec53c1d1468f527fa8549b19252d99e"
   dependencies:
     create-react-class "^15.6.3"
     keymirror "0.1.1"
