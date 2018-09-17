@@ -1,6 +1,6 @@
 import { Keyboard } from 'react-native';
 
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 import { Actions } from 'react-native-router-flux';
 
 import * as type from './types';

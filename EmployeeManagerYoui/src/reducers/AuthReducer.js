@@ -1,7 +1,8 @@
 import * as type from '../actions/types';
 
 const INITIAL_STATE = {
-    email: 'test@test.com',
+    //email: 'test@test.com',
+    email: 'josh@newaccounttest.com',
     password: 'password',
     user: null,
     error: '',

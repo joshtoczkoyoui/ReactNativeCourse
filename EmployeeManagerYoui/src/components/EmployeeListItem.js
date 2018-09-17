@@ -1,48 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback, NativeModules, LayoutAnimation } from 'react-native';
-
-// // Redux
-// import { connect } from 'react-redux';
-// import * as actions from '../actions';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 
 // Common
 import { CardSection } from './common';
 
-// const { UIManager } = NativeModules;
-// UIManager.setLayoutAnimationEnabledExperimental(true);
-
 class EmployeeListItem extends React.Component {
-    // componentWillUpdate() {
-    //     LayoutAnimation.spring();
-    // }
-
-    // getTitleStyle() {
-    //     const { 
-    //         titleStyle,
-    //         highlightedTitleStyle,
-    //     } = styles;
-
-    //     if (this.props.expanded) {
-    //         return highlightedTitleStyle;
-    //     }
-
-    //     return titleStyle;
-    // }
-
-    // renderDescription() {
-    //     const { library, expanded } = this.props;
-
-    //     if (expanded) {
-    //         return (
-    //             <CardSection>
-    //                 <Text style={styles.descriptionStyle}>{library.description}</Text>
-    //             </CardSection>
-    //         );
-    //     }
-    // }
-
     onSelectEmployee() {
         Actions.employeeEdit({ employee: this.props.employee });
     }
@@ -60,19 +24,6 @@ class EmployeeListItem extends React.Component {
                     </CardSection>
                 </View>
             </TouchableWithoutFeedback>
-            
-            // <TouchableWithoutFeedback 
-            //     onPress={() => this.props.selectLibrary(id)}
-            // >
-            //     <View>
-            //         <CardSection>
-            //             <Text style={this.getTitleStyle()}>
-            //                 {title}
-            //             </Text>
-            //         </CardSection>
-            //         {this.renderDescription()}
-            //     </View>
-            // </TouchableWithoutFeedback>
         );
     }
 }
@@ -94,11 +45,4 @@ const styles = {
     },
 };
 
-// const mapStateToProps = (state, ownProps) => {
-//     const expanded = state.selectedLibraryId === ownProps.library.id;
-
-//     return { expanded };
-// };
-
-//export default connect(mapStateToProps, actions)(EmployeeListItem);
 export default EmployeeListItem;

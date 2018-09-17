@@ -10,13 +10,8 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 
-// Common components
-import { Header } from './components/common';
-
 // Components
 import Router from './Router';
-
-import LoginForm from './components/LoginForm';
 
 class YiReactApp extends React.Component {
     componentWillMount() {
@@ -28,6 +23,8 @@ class YiReactApp extends React.Component {
             storageBucket: 'employeemanager-rncourse.appspot.com',
             messagingSenderId: '919711418066'
         };
+
+        console.log('trying to init firebase');
 
         firebase.initializeApp(config);
     }

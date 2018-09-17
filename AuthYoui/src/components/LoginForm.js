@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 import { Button, Card, CardSection, Input, Spinner } from './common';
 

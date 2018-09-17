@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 // 3rd Party
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 // Redux
 import { Provider } from 'react-redux';
